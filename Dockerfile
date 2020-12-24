@@ -1,7 +1,7 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 
-FROM ucsb/ling-194:v20201019.1
+FROM ucsb/ling-194:v20201223.2
 
 LABEL maintainer="Patrick Windmiller <sysadmin@pstat.ucsb.edu>"
 
@@ -24,7 +24,10 @@ USER $NB_UID
 
 RUN pip install gensim && \
     pip install timeout-decorator && \
-    pip install morfessor
+    pip install morfessor && \
+    pip install cython
+
+WORKDIR /home/jovyan/
 
 #-- Export PATHS
 RUN export PATH=$PATH:/usr/bin/srilm/bin:/usr/bin/srilm/i686-m64
