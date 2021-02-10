@@ -25,7 +25,8 @@ USER $NB_UID
 RUN pip install gensim && \
     pip install timeout-decorator && \
     pip install morfessor && \
-    pip install cython
+    pip install cython && \
+    pip install arpa
 
 WORKDIR /home/jovyan/
 
