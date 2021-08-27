@@ -7,6 +7,8 @@ on:
 
 jobs:
   docker:
+    env:
+      DOCKER_REPO: ucsb/ling-110
     runs-on: ubuntu-latest
     steps:
       -
@@ -22,7 +24,7 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            ucsb/ling-110
+            $DOCKER_REPO
           tags: |
             type=raw,value=latest
             type=sha
@@ -38,7 +40,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          #file: src/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=registry,ref=$DOCKER_REPO:latest
+          cache-to: type=inline
