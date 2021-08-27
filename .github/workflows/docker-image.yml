@@ -42,4 +42,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=registry,ref=ucsb/ling-110:latest
-          cache-to: type=inline
+          cache-to: type=registry,ref=ucsb/ling-110:buildcache,mode=max
