@@ -26,7 +26,8 @@ RUN pip install gensim && \
     pip install timeout-decorator && \
     pip install morfessor && \
     pip install cython && \
-    pip install arpa
+    pip install arpa && \
+    pip install linguistics 
 
 WORKDIR /home/jovyan/
 
