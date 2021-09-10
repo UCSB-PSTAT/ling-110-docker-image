@@ -38,8 +38,17 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
+          #file: src/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=ucsb/ling-110:latest
-          cache-to: type=registry,ref=ucsb/ling-110:buildcache,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=min
+      -   
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took # selectable (default: repo,message)
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+        if: always() # Pick up events even if the job fails or is canceled.
